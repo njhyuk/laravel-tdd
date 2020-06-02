@@ -47,4 +47,15 @@ class TasksTest extends TestCase
         //It gets stored in the database
         $this->assertEquals(1, Task::all()->count());
     }
+
+    /** @test */
+    public function unauthenticated_users_cannot_create_a_new_task()
+    {
+        //Given we have a task object
+        $task = factory('App\Task')->make();
+        //When unauthenticated user submits post request to create task endpoint
+        // He should be redirected to login page
+        $this->post('/tasks/create',$task->toArray())
+            ->assertRedirect('/login');
+    }
 }
