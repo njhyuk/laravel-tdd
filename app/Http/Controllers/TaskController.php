@@ -81,7 +81,8 @@ class TaskController extends Controller
      */
     public function update(Request $request, Task $task)
     {
-        //
+        $task->update($request->all());
+        return redirect('/tasks/'.$task->id);
     }
 
     /**
