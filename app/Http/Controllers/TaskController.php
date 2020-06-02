@@ -34,14 +34,13 @@ class TaskController extends Controller
         return view('tasks.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+
         $task = Task::create([
             'title' => $request->get('title'),
             'description' => $request->get('description'),

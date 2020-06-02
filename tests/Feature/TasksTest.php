@@ -58,4 +58,26 @@ class TasksTest extends TestCase
         $this->post('/tasks/create',$task->toArray())
             ->assertRedirect('/login');
     }
+
+    /** @test */
+    public function a_task_requires_a_title(){
+
+        $this->actingAs(factory('App\User')->create());
+
+        $task = factory('App\Task')->make(['title' => null]);
+
+        $this->post('/tasks/create',$task->toArray())
+            ->assertSessionHasErrors('title');
+    }
+
+    /** @test */
+    public function a_task_requires_a_description(){
+
+        $this->actingAs(factory('App\User')->create());
+
+        $task = factory('App\Task')->make(['description' => null]);
+
+        $this->post('/tasks/create',$task->toArray())
+            ->assertSessionHasErrors('description');
+    }
 }

@@ -17,6 +17,16 @@
                                     </textarea>
                             </div>
                             <button class="btn btn-primary" type="Submit" >Add Task</button>
+
+                            @if(count($errors))
+                                <div class="alert alert-danger">
+                                    @foreach($errors->all() as $error)
+                                        <li>
+                                            {{$error}}
+                                        </li>
+                                    @endforeach
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
