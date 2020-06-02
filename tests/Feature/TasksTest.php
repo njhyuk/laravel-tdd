@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Task;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
@@ -32,5 +33,18 @@ class TasksTest extends TestCase
         //He can see the task details
         $response->assertSee($task->title)
             ->assertSee($task->description);
+    }
+
+    /** @test */
+    public function authenticated_users_can_create_a_new_task()
+    {
+        //Given we have an authenticated user
+        $this->actingAs(factory('App\User')->create());
+        //And a task object
+        $task = factory('App\Task')->make();
+        //When user submits post request to create task endpoint
+        $this->post('/tasks/create',$task->toArray());
+        //It gets stored in the database
+        $this->assertEquals(1, Task::all()->count());
     }
 }

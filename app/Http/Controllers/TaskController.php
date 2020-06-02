@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -37,7 +38,13 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $task = Task::create([
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            'user_id' => Auth::id()
+        ]);
+
+        return redirect('/tasks/'.$task->id);
     }
 
     /**

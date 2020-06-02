@@ -24,3 +24,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tasks', 'TaskController@index');
 
 Route::get('/tasks/{task}','TaskController@show');
+Route::post('/tasks/create','TaskController@store');
