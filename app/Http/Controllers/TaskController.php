@@ -72,15 +72,10 @@ class TaskController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Task  $task
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Task $task)
     {
+        $this->authorize('update', $task);
+
         $task->update($request->all());
         return redirect('/tasks/'.$task->id);
     }
